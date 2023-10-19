@@ -1,4 +1,5 @@
 import axios from "axios";
+import "../app.css";
 import {
   ReactNode,
   createContext,
@@ -9,6 +10,7 @@ import {
 
 type CartContextProps = {
   shirt: ShirtProps;
+  handleChangeCursor: (event: React.MouseEvent) => void;
 };
 type CartContextProviderProps = {
   children: ReactNode;
@@ -29,6 +31,7 @@ const cartContext = createContext({} as CartContextProps);
 
 export function CartContextProvider({ children }: CartContextProviderProps) {
   const [shirt, setShirt] = useState({} as ShirtProps);
+
   useEffect(() => {
     async function fetchData() {
       const response = await axios
@@ -43,8 +46,17 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     fetchData();
   }, []);
 
+  const handleChangeCursor = (event: React.MouseEvent) => {
+    const target = event.target as HTMLElement;
+    if (target.classList.contains("size")) {
+      target.classList.add("sizeActive");
+    }
+  };
+
   return (
-    <cartContext.Provider value={{ shirt }}>{children}</cartContext.Provider>
+    <cartContext.Provider value={{ shirt, handleChangeCursor }}>
+      {children}
+    </cartContext.Provider>
   );
 }
 
