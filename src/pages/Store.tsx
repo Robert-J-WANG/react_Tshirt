@@ -1,5 +1,4 @@
 import { Button, Col, Image, Row } from "react-bootstrap";
-// import { useCartContext } from "../context/UseCartContext";
 import { formatCurrency } from "../utils/formatCurrency";
 import { Ttshirt } from "../type/Ttshirt";
 
@@ -17,7 +16,6 @@ export default function Store({
   addToCart,
   selectedSize,
 }: StoreProps) {
-  // const { shirt, handleChangeCursor } = useCartContext();
   return (
     <Row sm={1} md={2} className="mx-md-5">
       <Col className="px-md-5">

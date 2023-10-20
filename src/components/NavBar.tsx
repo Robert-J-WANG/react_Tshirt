@@ -20,11 +20,11 @@ export default function NavBar({
     <NavBarBs>
       <Container className="bg-light shadow-sm mb-5 d-flex justify-content-end align-items-center">
         <div
-          onClick={openCart}
           style={{
             position: "relative",
             paddingRight: "50px",
           }}
+          onClick={openCart}
         >
           <div
             style={{
@@ -32,8 +32,8 @@ export default function NavBar({
               height: "30px",
               lineHeight: "30px",
               textAlign: "center",
-              boxSizing: "border-box",
               backgroundColor: isOpen ? "white" : "",
+              border: isOpen ? "2px solid #ccc" : "",
             }}
           >
             My Cart ( <span>{totalCount}</span> )
