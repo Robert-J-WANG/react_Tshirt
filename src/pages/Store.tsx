@@ -2,21 +2,20 @@ import { Button, Col, Image, Row } from "react-bootstrap";
 // import { useCartContext } from "../context/UseCartContext";
 import { formatCurrency } from "../utils/formatCurrency";
 import { Ttshirt } from "../type/Ttshirt";
-// import { TcartItem } from "../type/TcartItem";
 
 type StoreProps = {
-  // cartItem: TcartItem;
   tshirt: Ttshirt;
   selectSize: (id: number) => void;
   active: string;
   addToCart: () => void;
+  selectedSize: string;
 };
 export default function Store({
   tshirt,
-  // cartItem,
   selectSize,
   active,
   addToCart,
+  selectedSize,
 }: StoreProps) {
   // const { shirt, handleChangeCursor } = useCartContext();
   return (
@@ -44,14 +43,9 @@ export default function Store({
             >
               *
             </span>{" "}
-            {/* {cartItem.size} */}
+            {selectedSize}
           </h5>
-          <ul
-            className="d-flex justify-content-start align-items-center gap-2 "
-            // onMouseOver={(e) => {
-            //   // handleChangeCursor(e);
-            // }}
-          >
+          <ul className="d-flex justify-content-start align-items-center gap-2 ">
             {tshirt.sizeOptions.map((size) => {
               return (
                 <li

@@ -17,7 +17,7 @@ const initState = {
     title: "",
   },
 
-  allItems: [] as TcartItem[], // 显式指定类型为 TcartItem[]
+  cartItems: [] as TcartItem[], // 显式指定类型为 TcartItem[]
   selectedSize: "",
   isOpen: false,
   active: "",
@@ -72,25 +72,28 @@ function App() {
         size: state.selectedSize,
       };
 
-      const itemIndex = state.allItems.findIndex(
+      const itemIndex = state.cartItems.findIndex(
         (item: TcartItem) => item.size === state.selectedSize
       );
 
       if (itemIndex !== -1) {
         // If the selectedSize matches an existing item, increase the count
-        setState((prevState) => {
-          const updatedItems = [...prevState.allItems];
-          updatedItems[itemIndex].count += 1;
-          return {
-            ...prevState,
-            allItems: updatedItems,
-          };
+        const updatedItems = state.cartItems.map((item) => {
+          if (item.size === state.selectedSize) {
+            return { ...item, count: item.count + 1 };
+          }
+          return item;
         });
-      } else {
-        // If the selectedSize is new, add it to the allItems array
+
         setState((prevState) => ({
           ...prevState,
-          allItems: [...prevState.allItems, newItem],
+          cartItems: updatedItems,
+        }));
+      } else {
+        // If the selectedSize is new, add it to the cartItems array
+        setState((prevState) => ({
+          ...prevState,
+          cartItems: [...prevState.cartItems, newItem],
         }));
       }
     }
@@ -105,6 +108,7 @@ function App() {
           selectSize={selectSize}
           active={state.active}
           addToCart={addToCart}
+          selectedSize={state.selectedSize}
         />
       </Container>
     </CartContextProvider>
