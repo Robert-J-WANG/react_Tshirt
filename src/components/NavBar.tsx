@@ -5,14 +5,14 @@ import { Cart } from "./Cart";
 
 type NavBarProps = {
   tshirt: Ttshirt;
-  cartItems: TcartItem[];
+  cartItem: TcartItem;
   isOpen: boolean;
   openCart: () => void;
 };
 
 export default function NavBar({
   tshirt,
-  cartItems,
+  cartItem,
   isOpen,
   openCart,
 }: NavBarProps) {
@@ -39,7 +39,7 @@ export default function NavBar({
           >
             My Cart ( <span>10</span> )
           </div>
-          {isOpen ? <Cart /> : ""}
+          {isOpen ? <Cart cartItem={cartItem} /> : ""}
         </div>
       </Container>
     </NavBarBs>

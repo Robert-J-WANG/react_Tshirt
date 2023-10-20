@@ -1,6 +1,9 @@
-import React from "react";
+import { TcartItem } from "../type/TcartItem";
 
-export const Cart = () => {
+type TCartProps = {
+  cartItem: TcartItem;
+};
+export const Cart = ({ cartItem }: TCartProps) => {
   return (
     <div
       className="d-flex flex-column align-items-end"
@@ -27,6 +30,7 @@ export const Cart = () => {
           width: "400px",
           height: "200px",
           border: "2px solid #ccc",
+          backgroundColor: "#fff",
         }}
       >
         12121

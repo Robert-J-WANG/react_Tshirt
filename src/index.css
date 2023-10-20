@@ -3,3 +3,22 @@
   padding: 0;
   /* box-sizing: border-box; */
 }
+ul,li{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sizeActive{
+  border: 2px solid black;
+  color: black;
+}
+.sizeSpan{
+  /* display: flex;
+  justify-content: center;
+  align-items: center; */
+  width: "3rem";
+  height: "3rem";
+  border: "1px solid #999";
+  color: "#999";
+}
