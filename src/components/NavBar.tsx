@@ -1,16 +1,21 @@
 import { Container, Navbar as NavBarBs } from "react-bootstrap";
 import { TcartItem } from "../type/TcartItem";
-import { Ttshirt } from "../type/Ttshirt";
 import { Cart } from "./Cart";
 
 type NavBarProps = {
-  tshirt: Ttshirt;
+  cartItems: TcartItem[];
   isOpen: boolean;
   openCart: () => void;
+  totalCount: number;
 };
 
-export default function NavBar({ tshirt, isOpen, openCart }: NavBarProps) {
-  // console.log(isOpen);
+export default function NavBar({
+  cartItems,
+  isOpen,
+  openCart,
+  totalCount,
+}: NavBarProps) {
+  console.log(totalCount);
   return (
     <NavBarBs>
       <Container className="bg-light shadow-sm mb-5 d-flex justify-content-end align-items-center">
@@ -31,9 +36,9 @@ export default function NavBar({ tshirt, isOpen, openCart }: NavBarProps) {
               backgroundColor: isOpen ? "white" : "",
             }}
           >
-            My Cart ( <span>10</span> )
+            My Cart ( <span>{totalCount}</span> )
           </div>
-          {isOpen ? <Cart /> : ""}
+          {isOpen ? <Cart cartItems={cartItems} /> : ""}
         </div>
       </Container>
     </NavBarBs>

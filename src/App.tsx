@@ -17,10 +17,14 @@ const initState = {
     title: "",
   },
 
-  cartItems: [] as TcartItem[], // 显式指定类型为 TcartItem[]
+  cartItems: [] as TcartItem[], // 显式指定类型为 TcartItem[]的空数组
+  // cartItems: [
+  //   { id: "", imageURL: "", title: "", count: 0, price: 0, size: "" },
+  // ], // 这样写的话，cartItems数组不是空数组，页面一加载，里面就有一个初始化的对象元素
   selectedSize: "",
   isOpen: false,
   active: "",
+  totalCount: 0,
 };
 
 function App() {
@@ -97,19 +101,23 @@ function App() {
         }));
       }
     }
+
+    // 更新商品总数
+    setState((prevState) => ({
+      ...prevState,
+      // reduce就和
+      totalCount: prevState.cartItems.reduce(
+        (prev, item) => prev + item.count,
+        0
+      ),
+    }));
   };
 
   return (
     <CartContextProvider>
       <NavBar {...state} openCart={openCart} />
       <Container>
-        <Store
-          tshirt={state.tshirt}
-          selectSize={selectSize}
-          active={state.active}
-          addToCart={addToCart}
-          selectedSize={state.selectedSize}
-        />
+        <Store {...state} addToCart={addToCart} selectSize={selectSize} />
       </Container>
     </CartContextProvider>
   );
