@@ -16,14 +16,7 @@ const initState = {
     sizeOptions: [{ id: 0, label: "" }],
     title: "",
   },
-  // cartItem: {
-  //   id: nanoid(),
-  //   imageURL: "",
-  //   title: "",
-  //   count: 0,
-  //   price: 0,
-  //   size: "",
-  // },
+
   allItems: [] as TcartItem[], // 显式指定类型为 TcartItem[]
   selectedSize: "",
   isOpen: false,
@@ -60,10 +53,6 @@ function App() {
     if (res) {
       setState((prevState) => ({
         ...prevState,
-        // cartItem: {
-        //   ...prevState.cartItem,
-        //   size: res.label!,
-        // },
         selectedSize: res.label!,
         active: res.label!,
       }));
@@ -94,7 +83,6 @@ function App() {
           updatedItems[itemIndex].count += 1;
           return {
             ...prevState,
-            // cartItem: newItem,
             allItems: updatedItems,
           };
         });
@@ -102,7 +90,6 @@ function App() {
         // If the selectedSize is new, add it to the allItems array
         setState((prevState) => ({
           ...prevState,
-          cartItem: newItem,
           allItems: [...prevState.allItems, newItem],
         }));
       }
@@ -111,11 +98,10 @@ function App() {
 
   return (
     <CartContextProvider>
-      {/* <NavBar {...state} openCart={openCart} /> */}
+      <NavBar {...state} openCart={openCart} />
       <Container>
         <Store
           tshirt={state.tshirt}
-          // cartItem={state.cartItem}
           selectSize={selectSize}
           active={state.active}
           addToCart={addToCart}

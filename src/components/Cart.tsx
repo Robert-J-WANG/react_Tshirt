@@ -1,9 +1,7 @@
 import { TcartItem } from "../type/TcartItem";
 
-type TCartProps = {
-  cartItem: TcartItem;
-};
-export const Cart = ({ cartItem }: TCartProps) => {
+type TCartProps = {};
+export const Cart = ({}: TCartProps) => {
   return (
     <div
       className="d-flex flex-column align-items-end"
