@@ -1,3 +1,4 @@
+import React from "react";
 import { Container, Navbar as NavBarBs } from "react-bootstrap";
 import { Cart } from "./Cart";
 import { useSharedState } from "../context/UseCartContainer";

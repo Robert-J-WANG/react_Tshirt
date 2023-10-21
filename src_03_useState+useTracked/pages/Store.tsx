@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
 import { formatCurrency } from "../utils/formatCurrency";
 import { useSharedState } from "../context/UseCartContainer";
@@ -7,9 +8,14 @@ import { useEffect } from "react";
 import axios from "axios";
 
 export default function Store() {
+  /* ------------- //bug: 刷新页面后，本地存储的数据渲染到页面， ------------- */
+  /* ------------ 选择size,点击add按钮，更新item的count。 ------------ */
+  /* ----------- 但是此时，如果不选择size(默认的是上次选择的size)， ----------- */
+  /* ----------------- 再次点击add按钮时，功能失效？？？ ----------------- */
+
   const [state, setState] = useSharedState();
   const { tshirt, selectedSize, active } = state;
-  // 页面初始化
+  // 存在//bug的页面初始化:
   /* --------- 页面初次渲染，获取api数据，并存储到state的tshirt对象中 --------- */
   useEffect(() => {
     const getTshirt = async () => {
@@ -60,9 +66,9 @@ export default function Store() {
         const updatedItems = state.cartItems.map((item) => {
           if (item.size === state.selectedSize) {
             return { ...item, count: item.count + 1 };
-          }
-          return item;
+          } else return item;
         });
+        // console.log(updatedItems);
 
         setState((prevState) => ({
           ...prevState,
