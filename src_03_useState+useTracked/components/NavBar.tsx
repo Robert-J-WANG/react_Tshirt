@@ -1,13 +1,13 @@
-import React from "react";
 import { Container, Navbar as NavBarBs } from "react-bootstrap";
 import { Cart } from "./Cart";
-import { useCartContext } from "../context/UseCartContext";
+import { useSharedState } from "../context/UseCartContainer";
 
 export default function NavBar() {
-  const {
-    state: { isOpen, totalCount },
-    openCart,
-  } = useCartContext();
+  const [state, setState] = useSharedState();
+  const { isOpen, totalCount } = state;
+  const openCart = () => {
+    setState((prevState) => ({ ...prevState, isOpen: !prevState.isOpen }));
+  };
   return (
     <NavBarBs>
       <Container className="bg-light shadow-sm mb-5 d-flex justify-content-end align-items-center">
@@ -33,6 +33,7 @@ export default function NavBar() {
           </div>
           {isOpen ? <Cart /> : ""}
         </div>
+        <p>{Math.random()}</p>
       </Container>
     </NavBarBs>
   );

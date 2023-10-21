@@ -1,3 +1,4 @@
+import React from "react";
 import { useCartContext } from "../context/UseCartContext";
 import { formatCurrency } from "../utils/formatCurrency";
 

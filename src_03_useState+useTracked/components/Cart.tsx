@@ -1,4 +1,3 @@
-import React from "react";
 import { useSharedState } from "../context/UseCartContainer";
 import { formatCurrency } from "../utils/formatCurrency";
 

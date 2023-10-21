@@ -1,14 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import App from "./App.tsx";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
-import { CartContextProvider } from "./context/UseCartContext.tsx";
+import { SharedStateProvider } from "./context/UseCartContainer.js";
+import App from "./App";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
-  <CartContextProvider>
+  <SharedStateProvider>
     <React.StrictMode>
       <App />
     </React.StrictMode>
-  </CartContextProvider>
+  </SharedStateProvider>
 );

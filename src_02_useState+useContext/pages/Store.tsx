@@ -1,6 +1,7 @@
 import { Button, Col, Image, Row } from "react-bootstrap";
 import { formatCurrency } from "../utils/formatCurrency";
 import { useCartContext } from "../context/UseCartContext";
+import React from "react";
 
 export default function Store() {
   const {

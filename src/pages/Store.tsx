@@ -1,13 +1,94 @@
+import React from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
 import { formatCurrency } from "../utils/formatCurrency";
-import { useCartContext } from "../context/UseCartContext";
+import { useSharedState } from "../context/UseCartContainer";
+import { nanoid } from "nanoid";
+import { TcartItem } from "../type/TcartItem";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function Store() {
-  const {
-    state: { tshirt, active, selectedSize },
-    selectSize,
-    addToCart,
-  } = useCartContext();
+  const [state, setState] = useSharedState();
+  const { tshirt, selectedSize, active } = state;
+  // 页面初始化
+  /* --------- 页面初次渲染，获取api数据，并存储到state的tshirt对象中 --------- */
+  useEffect(() => {
+    const getTshirt = async () => {
+      await axios
+        .get(
+          "https://3sb655pz3a.execute-api.ap-southeast-2.amazonaws.com/live/product"
+        )
+        .then((response) => {
+          setState((prevState) => ({
+            ...prevState,
+            tshirt: response.data,
+          }));
+        });
+    };
+    getTshirt();
+  }, []);
+  /* ----------------------- 选择型号的回调 ---------------------- */
+  const selectSize = (id: number) => {
+    const res = state.tshirt.sizeOptions.find((option) => option.id === id);
+    if (res) {
+      setState((prevState) => ({
+        ...prevState,
+        selectedSize: res.label!,
+        active: res.label!,
+      }));
+    }
+  };
+  /* ---------------------- 添加到购物车的回调 --------------------- */
+  const addToCart = () => {
+    if (state.selectedSize === "") {
+      alert("Please choose your size.");
+    } else {
+      const newItem = {
+        id: nanoid(),
+        imageURL: state.tshirt.imageURL,
+        title: state.tshirt.title,
+        count: 1,
+        price: state.tshirt.price,
+        size: state.selectedSize,
+      };
+
+      const itemIndex = state.cartItems.findIndex(
+        (item: TcartItem) => item.size === state.selectedSize
+      );
+
+      if (itemIndex !== -1) {
+        // If the selectedSize matches an existing item, increase the count
+        const updatedItems = state.cartItems.map((item) => {
+          if (item.size === state.selectedSize) {
+            return { ...item, count: item.count + 1 };
+          } else return item;
+        });
+        // console.log(updatedItems);
+
+        setState((prevState) => ({
+          ...prevState,
+          cartItems: updatedItems,
+        }));
+      } else {
+        // If the selectedSize is new, add it to the cartItems array
+        setState((prevState) => ({
+          ...prevState,
+          cartItems: [...prevState.cartItems, newItem],
+        }));
+      }
+    }
+
+    // 更新商品总数
+    setState((prevState) => ({
+      ...prevState,
+      // reduce就和
+      totalCount: prevState.cartItems.reduce(
+        (prev, item) => prev + item.count,
+        0
+      ),
+    }));
+  };
+
   return (
     <Row sm={1} md={2} className="mx-md-5">
       <Col className="px-md-5">
@@ -64,6 +145,7 @@ export default function Store() {
         <Button variant="outline-dark" className="w-50" onClick={addToCart}>
           ADD TO CART
         </Button>
+        <p>{Math.random()}</p>
       </Col>
     </Row>
   );
