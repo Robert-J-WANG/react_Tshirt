@@ -23,7 +23,6 @@ export default function NavBar({
             position: "relative",
             paddingRight: "50px",
           }}
-          onClick={openCart}
         >
           <div
             style={{
@@ -35,6 +34,7 @@ export default function NavBar({
               border: isOpen ? "2px solid #ccc" : "",
               cursor: "pointer",
             }}
+            onClick={openCart}
           >
             My Cart ( <span>{totalCount}</span> )
           </div>
