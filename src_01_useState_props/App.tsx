@@ -129,7 +129,6 @@ function App() {
         }));
       }
     }
-
     // 更新商品总数
     setState((prevState) => ({
       ...prevState,
