@@ -13,6 +13,24 @@ export default function Store() {
   /* ----------- 但是此时，如果不选择size(默认的是上次选择的size)， ----------- */
   /* ----------------- 再次点击add按钮时，功能失效？？？ ----------------- */
 
+  /* ------------------ //hack:找到了bug的原因： ----------------- */
+  // 1. 使用本地存储的钩子里，useEffect里存储到本地的功能发生的条件是，当有key（存储数据的名字）或value（整个状态数据）发生变化时
+  // 2. 当第二次点击添加按钮之前，没有选择size（默认的是上次的size），导致状态数据没有任何变化，所以，保存到本地的功能未触发
+  // 3. 当第二次点击添加按钮是， 渲染到页面的数据是本地存储里的（第一次点击完成时生成的数据）相同的数据
+
+  /* --------------------- //Rbt：解决方案 --------------------- */
+  // 1. 如果不选择size的话，让其他数据发生变化，从而引起整个state的变化
+  // 2. 更新count时，先让原状态里的count自增1（++count)
+  // 3. 再将++count的值赋给count变量，并替换将原来的count
+  // 4. 如果是count++的话，原来的状态还是没有变化，不会触发保存到本地的功能
+
+  /*
+  useEffect(() => {
+    localStorage.setItem(key, JSON.stringify(value));
+  }, [key, value]); 
+
+  */
+
   const [state, setState] = useSharedState();
   const { tshirt, selectedSize, active } = state;
   // 存在//bug的页面初始化:
@@ -65,8 +83,14 @@ export default function Store() {
         // If the selectedSize matches an existing item, increase the count
         const updatedItems = state.cartItems.map((item) => {
           if (item.size === state.selectedSize) {
+            // console.log(item);
+            // hack:这里解决了bug：item.count增1后，赋值给count
+            return { ...item, count: ++item.count };
+            // bug:如果写成这样，会有bug，count没有更新，应为原count一直没变
             return { ...item, count: item.count + 1 };
-          } else return item;
+          } else {
+            return item;
+          }
         });
         // console.log(updatedItems);
 
