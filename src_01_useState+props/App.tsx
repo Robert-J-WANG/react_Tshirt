@@ -1,12 +1,12 @@
 import { Container } from "react-bootstrap";
 import Store from "./pages/Store";
 import NavBar from "./components/NavBar";
-import { CartContextProvider } from "./context/UseCartContext";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { nanoid } from "nanoid";
 import { TcartItem } from "./type/TcartItem";
 import { useLocalStorage } from "./utils/useLocalStorage";
+import React from "react";
 
 const initState = {
   tshirt: {
@@ -80,15 +80,12 @@ function App() {
     }));
   };
   /* ----------------------- 选择型号的回调 ---------------------- */
-  const selectSize = (id: number) => {
-    const res = state.tshirt.sizeOptions.find((option) => option.id === id);
-    if (res) {
-      setState((prevState) => ({
-        ...prevState,
-        selectedSize: res.label!,
-        active: res.label!,
-      }));
-    }
+  const selectSize = (label: string) => {
+    setState((prevState) => ({
+      ...prevState,
+      selectedSize: label!,
+      active: label!,
+    }));
   };
   /* ---------------------- 添加到购物车的回调 --------------------- */
   const addToCart = () => {
@@ -141,12 +138,12 @@ function App() {
   };
 
   return (
-    <CartContextProvider>
+    <>
       <NavBar {...state} openCart={openCart} />
       <Container>
         <Store {...state} addToCart={addToCart} selectSize={selectSize} />
       </Container>
-    </CartContextProvider>
+    </>
   );
 }
 

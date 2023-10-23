@@ -54,7 +54,7 @@ export default function Store() {
                     color: active === size.label ? "#000" : "#999",
                     cursor: "pointer",
                   }}
-                  onClick={() => selectSize(size.id)}
+                  onClick={() => selectSize(size.label)}
                 >
                   {size.label}
                 </li>

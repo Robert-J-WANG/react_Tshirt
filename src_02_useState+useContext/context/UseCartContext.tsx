@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import { ReactNode, createContext, useContext, useEffect } from "react";
 import { TcartItem } from "../type/TcartItem";
 import { nanoid } from "nanoid";
-import { useLocalStorage } from "../utils/useLocalStorage";
+// import { useLocalStorage } from "../utils/useLocalStorage";
 
 type CartContextProviderProps = {
   children: ReactNode;
@@ -29,15 +29,16 @@ const initState = {
 type CreateContextPrpos = {
   state: typeof initState;
   openCart: () => void;
-  selectSize: (id: number) => void;
+  selectSize: (label: string) => void;
   addToCart: () => void;
 };
 const cartContext = createContext({} as CreateContextPrpos);
 export function CartContextProvider({ children }: CartContextProviderProps) {
   // 使用本地存储功能
-  const [state, setState] = useLocalStorage("my-cartItems", initState);
+  // const [state, setState] = useLocalStorage("my-cartItems", initState);
+
   // 没有本地存储
-  // const [state, setState] = useState(initState);
+  const [state, setState] = useState(initState);
   /* --------- 页面初次渲染，获取api数据，并存储到state的tshirt对象中 --------- */
   useEffect(() => {
     const getTshirt = async () => {
@@ -63,15 +64,12 @@ export function CartContextProvider({ children }: CartContextProviderProps) {
     }));
   };
   /* ----------------------- 选择型号的回调 ---------------------- */
-  const selectSize = (id: number) => {
-    const res = state.tshirt.sizeOptions.find((option) => option.id === id);
-    if (res) {
-      setState((prevState) => ({
-        ...prevState,
-        selectedSize: res.label!,
-        active: res.label!,
-      }));
-    }
+  const selectSize = (label: string) => {
+    setState((prevState) => ({
+      ...prevState,
+      selectedSize: label!,
+      active: label!,
+    }));
   };
   /* ---------------------- 添加到购物车的回调 --------------------- */
   const addToCart = () => {

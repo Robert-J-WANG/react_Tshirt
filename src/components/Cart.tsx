@@ -3,7 +3,7 @@ import { useSharedState } from "../context/UseCartContainer";
 import { formatCurrency } from "../utils/formatCurrency";
 
 export const Cart = () => {
-  const [state, setState] = useSharedState();
+  const [state, dispatch] = useSharedState();
   const { cartItems } = state;
   return (
     <div

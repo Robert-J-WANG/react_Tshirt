@@ -20,6 +20,6 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src_03_useState+useTracked1"],
+  "include": ["src_03_useState+useTracked"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }

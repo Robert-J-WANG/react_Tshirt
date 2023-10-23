@@ -1,6 +1,7 @@
 import { Container, Navbar as NavBarBs } from "react-bootstrap";
 import { TcartItem } from "../type/TcartItem";
 import { Cart } from "./Cart";
+import React from "react";
 
 type NavBarProps = {
   cartItems: TcartItem[];

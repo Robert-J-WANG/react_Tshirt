@@ -4,11 +4,8 @@ import { Cart } from "./Cart";
 import { useSharedState } from "../context/UseCartContainer";
 
 export default function NavBar() {
-  const [state, setState] = useSharedState();
+  const [state, dispatch] = useSharedState();
   const { isOpen, totalCount } = state;
-  const openCart = () => {
-    setState((prevState) => ({ ...prevState, isOpen: !prevState.isOpen }));
-  };
   return (
     <NavBarBs>
       <Container className="bg-light shadow-sm mb-5 d-flex justify-content-end align-items-center">
@@ -28,7 +25,9 @@ export default function NavBar() {
               border: isOpen ? "2px solid #ccc" : "",
               cursor: "pointer",
             }}
-            onClick={openCart}
+            onClick={() => {
+              dispatch({ type: "OPEN_CART", payload: isOpen });
+            }}
           >
             My Cart ( <span>{totalCount}</span> )
           </div>

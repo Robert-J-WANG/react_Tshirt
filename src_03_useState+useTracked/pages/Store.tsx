@@ -51,15 +51,12 @@ export default function Store() {
     getTshirt();
   }, []);
   /* ----------------------- 选择型号的回调 ---------------------- */
-  const selectSize = (id: number) => {
-    const res = state.tshirt.sizeOptions.find((option) => option.id === id);
-    if (res) {
-      setState((prevState) => ({
-        ...prevState,
-        selectedSize: res.label!,
-        active: res.label!,
-      }));
-    }
+  const selectSize = (label: string) => {
+    setState((prevState) => ({
+      ...prevState,
+      selectedSize: label!,
+      active: label!,
+    }));
   };
   /* ---------------------- 添加到购物车的回调 --------------------- */
   const addToCart = () => {
@@ -87,7 +84,7 @@ export default function Store() {
             // hack:这里解决了bug：item.count增1后，赋值给count
             return { ...item, count: ++item.count };
             // bug:如果写成这样，会有bug，count没有更新，应为原count一直没变
-            return { ...item, count: item.count + 1 };
+            // return { ...item, count: item.count + 1 };
           } else {
             return item;
           }
@@ -163,7 +160,7 @@ export default function Store() {
                     color: active === size.label ? "#000" : "#999",
                     cursor: "pointer",
                   }}
-                  onClick={() => selectSize(size.id)}
+                  onClick={() => selectSize(size.label)}
                 >
                   {size.label}
                 </li>

@@ -1,10 +1,11 @@
 import { Button, Col, Image, Row } from "react-bootstrap";
 import { formatCurrency } from "../utils/formatCurrency";
 import { Ttshirt } from "../type/Ttshirt";
+import React from "react";
 
 type StoreProps = {
   tshirt: Ttshirt;
-  selectSize: (id: number) => void;
+  selectSize: (label: string) => void;
   active: string;
   addToCart: () => void;
   selectedSize: string;
@@ -61,7 +62,7 @@ export default function Store({
                     color: active === size.label ? "#000" : "#999",
                     cursor: "pointer",
                   }}
-                  onClick={() => selectSize(size.id)}
+                  onClick={() => selectSize(size.label)}
                 >
                   {size.label}
                 </li>
