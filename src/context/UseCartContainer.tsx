@@ -69,11 +69,23 @@ const reducer: ImmerReducer<typeof initState, Taction> = (state, action) => {
     default:
       break;
   }
+  // 保存到本地
+  localStorage.setItem("new-cart", JSON.stringify(state));
+};
+
+// 设置第三个参数，性能优化，存取本地数据功能
+const initAction = () => {
+  const storedData = localStorage.getItem("new-cart");
+  if (storedData) {
+    return JSON.parse(storedData);
+  } else {
+    return initState; // Use the default state if there's no data in localStorage
+  }
 };
 
 const useValue = () => {
-  // 不使用本地存储
-  return useImmerReducer(reducer, initState);
+  // 设置第三个参数，性能优化，存取本地数据功能
+  return useImmerReducer(reducer, initState, initAction);
 };
 
 export const { Provider: SharedStateProvider, useTracked: useSharedState } =
