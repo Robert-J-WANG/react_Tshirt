@@ -33,7 +33,7 @@ export default function NavBar() {
           </div>
           {isOpen ? <Cart /> : ""}
         </div>
-        <p>{Math.random()}</p>
+        {/* <p>{Math.random()}</p> */}
       </Container>
     </NavBarBs>
   );

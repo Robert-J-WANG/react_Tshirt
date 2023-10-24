@@ -86,7 +86,7 @@ export default function Store() {
         >
           ADD TO CART
         </Button>
-        <p>{Math.random()}</p>
+        {/* <p>{Math.random()}</p> */}
       </Col>
     </Row>
   );
