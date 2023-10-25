@@ -1,6 +1,11 @@
 import React from "react";
 import { useSharedState } from "../context/UseCartContainer";
 import { formatCurrency } from "../utils/formatCurrency";
+import {
+  MdAddShoppingCart,
+  MdDeleteSweep,
+  MdRemoveShoppingCart,
+} from "react-icons/md";
 
 export const Cart = () => {
   const [state, dispatch] = useSharedState();
@@ -43,9 +48,48 @@ export const Cart = () => {
                 </p>
                 <p>size: {item.size}</p>
               </div>
+              <div className="d-flex flex-column gap-2 justify-content-center align-items-center">
+                <MdAddShoppingCart
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    color: "darkblue",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    dispatch({ type: "INCREASE_ITEM", payload: item.id });
+                  }}
+                />
+                <MdRemoveShoppingCart
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    color: "darkgoldenrod",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    dispatch({ type: "DECREASE_ITEM", payload: item.id });
+                  }}
+                />
+                <MdDeleteSweep
+                  style={{
+                    width: "30px",
+                    height: "30px",
+                    color: "darkred",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    dispatch({ type: "DELETE_ITEM", payload: item.id });
+                  }}
+                />
+              </div>
             </li>
           ))}
         </ul>
+        <p className="d-flex justify-content-between align-items-center mx-2">
+          <span>Total Price:</span>
+          <span className="fw-bolder">{formatCurrency(state.totalPrice)}</span>
+        </p>
       </div>
       {/* 遮盖线 */}
       <span

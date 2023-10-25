@@ -65,6 +65,7 @@ export default function Store() {
                         ? "2px solid #000"
                         : "1px solid #999",
                     color: active === size.label ? "#000" : "#999",
+                    borderRadius: "50%",
                     cursor: "pointer",
                   }}
                   onClick={() => {
