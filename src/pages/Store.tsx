@@ -24,15 +24,15 @@ export default function Store() {
 
   return (
     <Row sm={1} md={2} className="mx-md-5">
-      <Col className="px-md-5">
+      <Col className="px-md-5 ">
         <Image
           src={tshirt.imageURL}
           width={"400px"}
           height={"600px"}
-          className="object-fit-cover"
+          className="object-fit-cover rounded-4"
         />
       </Col>
-      <Col className="d-flex flex-column gap-4 px-md-5">
+      <Col className="tshirt">
         <h2>{tshirt.title}</h2>
         <h4>{formatCurrency(tshirt.price)}</h4>
         <p>{tshirt.description}</p>

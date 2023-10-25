@@ -30,7 +30,7 @@ export const Cart = () => {
       >
         <ul>
           {cartItems.map((item) => (
-            <li key={item.id} className="d-flex gap-5 my-3">
+            <li key={item.id} className="cart-item">
               <img
                 src={item.imageURL}
                 alt=""
@@ -38,7 +38,7 @@ export const Cart = () => {
                   height: "150px",
                 }}
               />
-              <div>
+              <div className="d-flex flex-column justify-content-center">
                 <p>{item.title}</p>
                 <p>
                   {item.count} x{" "}
