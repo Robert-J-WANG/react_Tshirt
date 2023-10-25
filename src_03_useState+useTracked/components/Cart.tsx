@@ -1,9 +1,8 @@
-import React from "react";
 import { useSharedState } from "../context/UseCartContainer";
 import { formatCurrency } from "../utils/formatCurrency";
 
 export const Cart = () => {
-  const [state, setState] = useSharedState();
+  const [state] = useSharedState();
   const { cartItems } = state;
   return (
     <div

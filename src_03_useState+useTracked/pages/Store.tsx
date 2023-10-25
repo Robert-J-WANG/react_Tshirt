@@ -1,4 +1,3 @@
-import React from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
 import { formatCurrency } from "../utils/formatCurrency";
 import { useSharedState } from "../context/UseCartContainer";
