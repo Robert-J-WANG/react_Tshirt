@@ -5,6 +5,7 @@ import { useSharedState } from "../context/UseCartContainer";
 import { useEffect } from "react";
 import axios from "axios";
 import { setTshirt, useTshirtStore, selectSize } from "../store/tshirtStore";
+import { addToCart } from "../store/cartStore";
 
 export default function Store() {
   const tshirt = useTshirtStore((state) => state.tshirt);
@@ -83,9 +84,10 @@ export default function Store() {
         <Button
           variant="outline-dark"
           className="w-50"
-          // onClick={() => {
-          //   dispatch({ type: "ADD_TO_CART" });
-          // }}
+          onClick={() => {
+            addToCart(selectedSize, tshirt);
+            // dispatch({ type: "ADD_TO_CART" });
+          }}
         >
           ADD TO CART
         </Button>
