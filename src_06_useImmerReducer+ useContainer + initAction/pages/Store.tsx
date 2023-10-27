@@ -4,12 +4,10 @@ import { formatCurrency } from "../utils/formatCurrency";
 import { useSharedState } from "../context/UseCartContainer";
 import { useEffect } from "react";
 import axios from "axios";
-import { setTshirt, useTshirtStore, selectSize } from "../store/tshirtStore";
 
 export default function Store() {
-  const tshirt = useTshirtStore((state) => state.tshirt);
-  const selectedSize = useTshirtStore((state) => state.selectedSize);
-  const active = useTshirtStore((state) => state.active);
+  const [state, dispatch] = useSharedState();
+  const { tshirt, selectedSize, active } = state;
 
   useEffect(() => {
     const getTshirt = async () => {
@@ -18,7 +16,7 @@ export default function Store() {
           "https://3sb655pz3a.execute-api.ap-southeast-2.amazonaws.com/live/product"
         )
         .then((response) => {
-          setTshirt(response.data);
+          dispatch({ type: "SET_TSHIRT", payload: response.data });
         });
     };
     getTshirt();
@@ -71,7 +69,7 @@ export default function Store() {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    selectSize(size.label);
+                    dispatch({ type: "SELECT_SIZE", payload: size.label });
                   }}
                 >
                   {size.label}
@@ -83,9 +81,9 @@ export default function Store() {
         <Button
           variant="outline-dark"
           className="w-50"
-          // onClick={() => {
-          //   dispatch({ type: "ADD_TO_CART" });
-          // }}
+          onClick={() => {
+            dispatch({ type: "ADD_TO_CART" });
+          }}
         >
           ADD TO CART
         </Button>
