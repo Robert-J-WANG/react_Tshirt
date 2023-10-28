@@ -26,7 +26,6 @@ export default function NavBar() {
               cursor: "pointer",
             }}
             onClick={() => {
-              // dispatch({ type: "OPEN_CART", payload: isOpen });
               openCart(isOpen);
             }}
           >
@@ -34,7 +33,6 @@ export default function NavBar() {
           </div>
           {isOpen ? <Cart /> : ""}
         </div>
-        {/* <p>{Math.random()}</p> */}
       </Container>
     </NavBarBs>
   );

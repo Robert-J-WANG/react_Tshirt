@@ -1,7 +1,6 @@
 import React from "react";
 import { Button, Col, Image, Row } from "react-bootstrap";
 import { formatCurrency } from "../utils/formatCurrency";
-import { useSharedState } from "../context/UseCartContainer";
 import { useEffect } from "react";
 import axios from "axios";
 import { setTshirt, useTshirtStore, selectSize } from "../store/tshirtStore";
@@ -85,13 +84,11 @@ export default function Store() {
           variant="outline-dark"
           className="w-50"
           onClick={() => {
-            addToCart(selectedSize, tshirt);
-            // dispatch({ type: "ADD_TO_CART" });
+            addToCart(selectedSize);
           }}
         >
           ADD TO CART
         </Button>
-        {/* <p>{Math.random()}</p> */}
       </Col>
     </Row>
   );

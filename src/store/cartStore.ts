@@ -3,7 +3,6 @@ import { devtools, persist, subscribeWithSelector } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
 import { TcartItem } from "../type/TcartItem";
 import { useTshirtStore } from "./tshirtStore";
-import { Ttshirt } from "../type/Ttshirt";
 import { nanoid } from "nanoid";
 
 const initState = {
@@ -34,8 +33,8 @@ export const openCart = (isOpen: boolean) => {
   });
 };
 
-export const addToCart = (selectedSize: string, tshrit: Ttshirt) => {
-  console.log(selectedSize);
+export const addToCart = (selectedSize: string) => {
+  const tshirt = useTshirtStore.getState().tshirt;
   if (selectedSize === "") {
     alert("Please select a size");
   }
@@ -46,10 +45,10 @@ export const addToCart = (selectedSize: string, tshrit: Ttshirt) => {
     if (sizeIndex === -1) {
       const updatedItem: TcartItem = {
         id: nanoid(),
-        imageURL: tshrit.imageURL,
-        title: tshrit.title,
+        imageURL: tshirt.imageURL,
+        title: tshirt.title,
         count: 1,
-        price: tshrit.price,
+        price: tshirt.price,
         size: selectedSize,
       };
       state.cartItems.push(updatedItem);
