@@ -1,7 +1,7 @@
 import { create } from "zustand";
 import { devtools, persist, subscribeWithSelector } from "zustand/middleware";
 import { immer } from "zustand/middleware/immer";
-import { TcartItem } from "../type/TcartItem";
+// import { TcartItem } from "../type/TcartItem";
 import { useTshirtStore } from "./tshirtStore";
 import { nanoid } from "nanoid";
 

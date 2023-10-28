@@ -3,7 +3,7 @@ import { Container } from "react-bootstrap";
 import Store from "./pages/Store";
 import NavBar from "./components/NavBar";
 
-function App() {
+export const App = () => {
   return (
     <>
       <NavBar />
@@ -12,6 +12,4 @@ function App() {
       </Container>
     </>
   );
-}
-
-export default App;
+};

@@ -1,7 +1,7 @@
 import { createContainer } from "react-tracked";
 import { ImmerReducer, useImmerReducer } from "use-immer";
 import { Ttshirt } from "../type/Ttshirt";
-import { TcartItem } from "../../src copy/type/TcartItem";
+import { TcartItem } from "../type/TcartItem";
 import { nanoid } from "nanoid";
 
 const initValue = {
