@@ -29,3 +29,77 @@ https://robert-j-wang.github.io/react_Tshirt/
 使用zustand库统一管理状态......
 
 + ##### 版本7： 使用zustand状态管理库
+
+    
+
+#### 配置问题：
+
+webpack中可以通过resolve.alias定义项目路径别名，这样可以在引入文件时，不再需要使用相对路径，统一以根路径（/src/）作为起点。
+
+1. 设置@绝对路径步骤
+
++ 初次使用ts的话，安装`@types/node`
+
+    ```
+    yarn add @types/node --save-dev
+    ```
+
++ vite.config中添加配置
+
+    ```ts
+    import { defineConfig } from "vite";
+    import react from "@vitejs/plugin-react";
+    import { join } from "node:path";
+    
+    // https://vitejs.dev/config/
+    export default defineConfig({
+      base: "/react_Tshirt/",
+      plugins: [react()],
+    
+      // 配置@路径, 应用组件时使用@代替./src/
+      resolve: {
+        alias: {
+          "@": join(__dirname, "src"),
+        },
+      },
+    });
+    ```
+
++ tsconfig.json 中添加配置
+
+    ```json
+    {
+      "compilerOptions": {
+          
+        //添加这些 配置
+        "baseUrl": ".",
+        "paths": {
+          "@/*": ["src/*"]
+        },
+    
+       //... 其他
+    
+        /* Bundler mode */
+        "moduleResolution": "node",   // 这里修改
+        "allowImportingTsExtensions": true,
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "noEmit": true,
+        "jsx": "react-jsx",
+          
+      //... 其他
+        }
+    ```
+
++ 根路径下新建申明文件typing.d.ts，添加下面代码
+
+    ```ts
+    declare module "@/*";
+    ```
+
++ 如果需要的话重启ts服务器 ： 
+
+    + shift+command+p ->搜索 restart -> 选择 Restart ts Server
+
++ 使用@代替  “./src/ " 引入文件
+
